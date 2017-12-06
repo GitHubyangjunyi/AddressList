@@ -34,6 +34,7 @@
             this.label_qq = new System.Windows.Forms.Label();
             this.label_hash = new System.Windows.Forms.Label();
             this.pictureBox_show = new System.Windows.Forms.PictureBox();
+            this.comboBox_dept = new System.Windows.Forms.ComboBox();
             this.comboBox_clas = new System.Windows.Forms.ComboBox();
             this.groupBox_sex = new System.Windows.Forms.GroupBox();
             this.radioButton_woman = new System.Windows.Forms.RadioButton();
@@ -55,7 +56,6 @@
             this.label_no = new System.Windows.Forms.Label();
             this.label_name = new System.Windows.Forms.Label();
             this.dataGridView_sinformation = new System.Windows.Forms.DataGridView();
-            this.comboBox_dept = new System.Windows.Forms.ComboBox();
             this.groupBox_information.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_show)).BeginInit();
             this.groupBox_sex.SuspendLayout();
@@ -146,6 +146,19 @@
             this.pictureBox_show.TabIndex = 9;
             this.pictureBox_show.TabStop = false;
             this.pictureBox_show.Click += new System.EventHandler(this.pictureBox_show_Click);
+            // 
+            // comboBox_dept
+            // 
+            this.comboBox_dept.FormattingEnabled = true;
+            this.comboBox_dept.Items.AddRange(new object[] {
+            "软件工程系",
+            "数字媒体系",
+            "信息管理系"});
+            this.comboBox_dept.Location = new System.Drawing.Point(110, 156);
+            this.comboBox_dept.Name = "comboBox_dept";
+            this.comboBox_dept.Size = new System.Drawing.Size(133, 20);
+            this.comboBox_dept.TabIndex = 8;
+            this.comboBox_dept.Text = "请选择所在系";
             // 
             // comboBox_clas
             // 
@@ -253,6 +266,7 @@
             this.button_select.TabIndex = 5;
             this.button_select.Text = "查询";
             this.button_select.UseVisualStyleBackColor = true;
+            this.button_select.Click += new System.EventHandler(this.button_select_Click);
             // 
             // button_delete
             // 
@@ -342,19 +356,6 @@
             this.dataGridView_sinformation.RowTemplate.Height = 23;
             this.dataGridView_sinformation.Size = new System.Drawing.Size(981, 294);
             this.dataGridView_sinformation.TabIndex = 2;
-            // 
-            // comboBox_dept
-            // 
-            this.comboBox_dept.FormattingEnabled = true;
-            this.comboBox_dept.Items.AddRange(new object[] {
-            "软件工程系",
-            "数字媒体系",
-            "信息管理系"});
-            this.comboBox_dept.Location = new System.Drawing.Point(110, 156);
-            this.comboBox_dept.Name = "comboBox_dept";
-            this.comboBox_dept.Size = new System.Drawing.Size(133, 20);
-            this.comboBox_dept.TabIndex = 8;
-            this.comboBox_dept.Text = "请选择所在系";
             // 
             // Information
             // 

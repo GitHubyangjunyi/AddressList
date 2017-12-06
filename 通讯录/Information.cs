@@ -159,33 +159,38 @@ namespace 通讯录
                     CommandText = sql_delete
                 };//实例化一个数据库操作对象
                 cmd_delete.Connection = con;
-                try
+                if (MessageBox.Show("确定删除?此操作不可恢复!", "此操作不可恢复!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    //第一个字符串参数为显示在对话框中的文本,第二个字符串参数为对话框标题
                 {
-                    con.Open();//打开数据库连接
+                    try
+                    {
+                        con.Open();//打开数据库连接
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("连接数据库失败!");
+                        return;
+                    }
+                    int j = cmd_delete.ExecuteNonQuery();//由于增加了一条记录，所以返回1
+                    if (j > 0)
+                    {
+                        MessageBox.Show("删除学生信息成功!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("删除学生信息失败!");
+                    }
+                    try
+                    {
+                        con.Close();//立即关闭数据库连接
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("断开数据库失败!");
+                        return;
+                    }
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("连接数据库失败!");
-                    return;
-                }
-                int j = cmd_delete.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-                if (j > 0)
-                {
-                    MessageBox.Show("删除学生信息成功!");
-                }
-                else
-                {
-                    MessageBox.Show("删除学生信息失败!");
-                }
-                try
-                {
-                    con.Close();//立即关闭数据库连接
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("断开数据库失败!");
-                    return;
-                }
+                
             }
             catch
             {
@@ -265,11 +270,17 @@ namespace 通讯录
             }
         }
 
+       
+
+        private void button_select_Click(object sender, EventArgs e)
+        {
+
+        }
         private void pictureBox_show_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
             if (DialogResult.OK == OpenFileDialog1.ShowDialog())
-            pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
+                pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
         }
     }
 }

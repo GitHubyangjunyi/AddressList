@@ -32,13 +32,13 @@ namespace 通讯录
             string username = textBox_username.Text;
             string pwd = textBox_pwd.Text;
             string sql_sign_in = string.Format("select count(*) from login where username='{0}' and pwd='{1}'", username, pwd);
+            //连接字符串中的用户名和密码存放在数据库里面的的login表里面
             SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);//实例化连接对象,并将连接字符串给该对象
             SqlCommand cmd_sign_in = new SqlCommand
             {
                 CommandText = sql_sign_in
             };
-            cmd_sign_in.Connection = connect_sign_in;//获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection。
-                                                     //返回结果:到数据源的连接
+            cmd_sign_in.Connection = connect_sign_in;//获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection.返回结果:到数据源的连接
             connect_sign_in.Open();//打开数据库连接
             int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
             connect_sign_in.Close();
