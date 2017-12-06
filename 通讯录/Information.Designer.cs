@@ -356,6 +356,7 @@
             this.Controls.Add(this.groupBox_information);
             this.Name = "Information";
             this.Text = "通讯录管理";
+            this.Load += new System.EventHandler(this.Information_Load);
             this.groupBox_information.ResumeLayout(false);
             this.groupBox_information.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_show)).EndInit();

@@ -87,5 +87,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlClass\SqlClass.csproj">
+      <Project>{0943e4dc-79ca-4c98-84cb-40d2c0f9a85f}</Project>
+      <Name>SqlClass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
