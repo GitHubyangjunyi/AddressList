@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace 通讯录
 {
-    public partial class Form1 : Form
+    public partial class Information : Form
     {
-        public Form1()
+        public Information()
         {
             InitializeComponent();
+        }
+
+        private void button_insert_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
