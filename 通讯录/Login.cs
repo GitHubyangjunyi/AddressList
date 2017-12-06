@@ -28,6 +28,7 @@ namespace 通讯录
             //定义查询要执行的SQL语句
             //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
             string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", textBox_username.Text, textBox_pwd.Text);
+            //注意在数据库映射权限给用户
             string username = textBox_username.Text;
             string pwd = textBox_pwd.Text;
             string sql_sign_in = string.Format("select count(*) from login where username='{0}' and pwd='{1}'", username, pwd);
@@ -51,7 +52,6 @@ namespace 通讯录
                 int i=DbSignIn_Out();
                 if (i > 0)
                 {
-                    //MessageBox.Show("登录成功!");
                     Information sinformation = new Information();//跳转到信息页
                     sinformation.ShowDialog();//模式对话框
                 }
@@ -69,28 +69,6 @@ namespace 通讯录
 
         private void linkLabel_sign_up_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //string constr_sign_up = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", textBox_username.Text, textBox_pwd.Text);
-            //string username = textBox_username.Text;
-            //string pwd = textBox_pwd.Text;
-            //string sql_sign_up = string.Format("insert into login values ('{0}','{1}')", username, pwd);
-            ////如果在此处出现错误,设置断点,提取程序当前生成的sql语句,放到数据库测试
-            //SqlConnection con_sign_up = new SqlConnection(constr_sign_up);
-            //SqlCommand cmd_sign_up = new SqlCommand
-            //{
-            //    CommandText = sql_sign_up
-            //};
-            //cmd_sign_up.Connection = con_sign_up;
-            //con_sign_up.Open();//打开数据库连接
-            //int j = Convert.ToInt32(cmd_sign_up.ExecuteNonQuery());//由于增加了一条记录，所以返回1
-            //if (j > 0)
-            //{
-            //    MessageBox.Show("注册成功!");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("注册失败!");
-            //}
-            //con_sign_up.Close();//立即关闭数据库连接
         }
     }
 }

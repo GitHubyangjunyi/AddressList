@@ -38,7 +38,6 @@
             this.groupBox_sex = new System.Windows.Forms.GroupBox();
             this.radioButton_woman = new System.Windows.Forms.RadioButton();
             this.radioButton_man = new System.Windows.Forms.RadioButton();
-            this.txt_dept = new System.Windows.Forms.TextBox();
             this.txt_addr = new System.Windows.Forms.TextBox();
             this.txt_qq = new System.Windows.Forms.TextBox();
             this.txt_phone = new System.Windows.Forms.TextBox();
@@ -56,6 +55,7 @@
             this.label_no = new System.Windows.Forms.Label();
             this.label_name = new System.Windows.Forms.Label();
             this.dataGridView_sinformation = new System.Windows.Forms.DataGridView();
+            this.comboBox_dept = new System.Windows.Forms.ComboBox();
             this.groupBox_information.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_show)).BeginInit();
             this.groupBox_sex.SuspendLayout();
@@ -69,9 +69,9 @@
             this.groupBox_information.Controls.Add(this.label_qq);
             this.groupBox_information.Controls.Add(this.label_hash);
             this.groupBox_information.Controls.Add(this.pictureBox_show);
+            this.groupBox_information.Controls.Add(this.comboBox_dept);
             this.groupBox_information.Controls.Add(this.comboBox_clas);
             this.groupBox_information.Controls.Add(this.groupBox_sex);
-            this.groupBox_information.Controls.Add(this.txt_dept);
             this.groupBox_information.Controls.Add(this.txt_addr);
             this.groupBox_information.Controls.Add(this.txt_qq);
             this.groupBox_information.Controls.Add(this.txt_phone);
@@ -91,7 +91,7 @@
             this.groupBox_information.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox_information.Location = new System.Drawing.Point(1, 2);
             this.groupBox_information.Name = "groupBox_information";
-            this.groupBox_information.Size = new System.Drawing.Size(906, 371);
+            this.groupBox_information.Size = new System.Drawing.Size(981, 371);
             this.groupBox_information.TabIndex = 1;
             this.groupBox_information.TabStop = false;
             this.groupBox_information.Text = "学生信息:";
@@ -104,6 +104,7 @@
             this.button_update.TabIndex = 11;
             this.button_update.Text = "修改";
             this.button_update.UseVisualStyleBackColor = true;
+            this.button_update.Click += new System.EventHandler(this.button_update_Click);
             // 
             // label_addr
             // 
@@ -144,6 +145,7 @@
             this.pictureBox_show.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_show.TabIndex = 9;
             this.pictureBox_show.TabStop = false;
+            this.pictureBox_show.Click += new System.EventHandler(this.pictureBox_show_Click);
             // 
             // comboBox_clas
             // 
@@ -191,13 +193,6 @@
             this.radioButton_man.TabStop = true;
             this.radioButton_man.Text = "男";
             this.radioButton_man.UseVisualStyleBackColor = true;
-            // 
-            // txt_dept
-            // 
-            this.txt_dept.Location = new System.Drawing.Point(110, 156);
-            this.txt_dept.Name = "txt_dept";
-            this.txt_dept.Size = new System.Drawing.Size(133, 21);
-            this.txt_dept.TabIndex = 6;
             // 
             // txt_addr
             // 
@@ -267,6 +262,7 @@
             this.button_delete.TabIndex = 5;
             this.button_delete.Text = "删除";
             this.button_delete.UseVisualStyleBackColor = true;
+            this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
             // 
             // button_insert
             // 
@@ -344,14 +340,27 @@
             this.dataGridView_sinformation.Location = new System.Drawing.Point(1, 377);
             this.dataGridView_sinformation.Name = "dataGridView_sinformation";
             this.dataGridView_sinformation.RowTemplate.Height = 23;
-            this.dataGridView_sinformation.Size = new System.Drawing.Size(906, 294);
+            this.dataGridView_sinformation.Size = new System.Drawing.Size(981, 294);
             this.dataGridView_sinformation.TabIndex = 2;
+            // 
+            // comboBox_dept
+            // 
+            this.comboBox_dept.FormattingEnabled = true;
+            this.comboBox_dept.Items.AddRange(new object[] {
+            "软件工程系",
+            "数字媒体系",
+            "信息管理系"});
+            this.comboBox_dept.Location = new System.Drawing.Point(110, 156);
+            this.comboBox_dept.Name = "comboBox_dept";
+            this.comboBox_dept.Size = new System.Drawing.Size(133, 20);
+            this.comboBox_dept.TabIndex = 8;
+            this.comboBox_dept.Text = "请选择所在系";
             // 
             // Information
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 683);
+            this.ClientSize = new System.Drawing.Size(984, 711);
             this.Controls.Add(this.dataGridView_sinformation);
             this.Controls.Add(this.groupBox_information);
             this.Name = "Information";
@@ -391,11 +400,11 @@
         private System.Windows.Forms.Label label_no;
         private System.Windows.Forms.Label label_name;
         private System.Windows.Forms.Label label_qq;
-        private System.Windows.Forms.TextBox txt_dept;
         private System.Windows.Forms.Label label_dept;
         private System.Windows.Forms.Label label_addr;
         private System.Windows.Forms.TextBox txt_qq;
         private System.Windows.Forms.TextBox txt_addr;
         private System.Windows.Forms.DataGridView dataGridView_sinformation;
+        private System.Windows.Forms.ComboBox comboBox_dept;
     }
 }

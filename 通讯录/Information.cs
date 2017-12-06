@@ -18,148 +18,261 @@ namespace 通讯录
             InitializeComponent();
         }
 
+        public int DbSignIn_Out()
+        {
+            //连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
+            //定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
+            //路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
+            //指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
+            //string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
+            //定义查询要执行的SQL语句
+            //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
+            string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID='test';PWD=123456");
+            string sql_sign_in = string.Format("select count(*) from login where username='test' and pwd=123456");
+            SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);//实例化连接对象,并将连接字符串给该对象
+            SqlCommand cmd_sign_in = new SqlCommand
+            {
+                CommandText = sql_sign_in
+            };
+            cmd_sign_in.Connection = connect_sign_in;//获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection。
+                                                     //返回结果:到数据源的连接
+            connect_sign_in.Open();//打开数据库连接
+            int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
+            connect_sign_in.Close();
+            return i;
+        }
+
         private void button_insert_Click(object sender, EventArgs e)
         {
 
+            try
+            {
+                string no = txt_no.Text.Trim();
+                string name = txt_name.Text.Trim();
+                int age = Convert.ToInt32(txt_age.Text.Trim());
+                string sex = "男";
+                string clas = comboBox_clas.Text;
+                string dept = comboBox_dept.Text;
+                string phone = txt_phone.Text;
+                string qq = txt_qq.Text;
+                string addr = txt_addr.Text;
+                if (radioButton_woman.Checked)
+                {
+                    sex = "女";
+                }
+                if (comboBox_clas.Text == "请选择班级")
+                {
+                    MessageBox.Show("请选择班级!");
+                    comboBox_clas.DropDownStyle = ComboBoxStyle.DropDownList;
+                    return;
+                }
+                if (comboBox_dept.Text == "请选择所在系")
+                {
+                    MessageBox.Show("请选择所在系!");
+                    comboBox_dept.DropDownStyle = ComboBoxStyle.DropDownList;
+                    return;
+                }
+                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+                string sql_insert = string.Format("insert into sinformation( no, name, age, sex, clas, dept, phone, qq, addr ) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", no, name, age, sex, clas, dept, phone, qq, addr);
+                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
+                SqlCommand cmd_insert = new SqlCommand
+                {
+                    CommandText = sql_insert
+                };//实例化一个数据库操作对象
+                cmd_insert.Connection = con;
+                try
+                {
+                    con.Open();//打开数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("连接数据库失败!");
+                }
+                int j = cmd_insert.ExecuteNonQuery();//由于增加了一条记录，所以返回1
+                if (j > 0)
+                {
+                    MessageBox.Show("添加学生信息成功!");
+                }
+                else
+                {
+                    MessageBox.Show("添加学生信息失败!");
+                }
+                try
+                {
+                    con.Close();//立即关闭数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("断开数据库失败!");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("输入有误,请重新输入!");
+                return;
+            }
         }
 
         private void Information_Load(object sender, EventArgs e)
         {
+            //Login login = new Login();
+            //login.DbSignIn_Out();
+        }
 
+        private void button_delete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string no = txt_no.Text.Trim();
+                string name = txt_name.Text.Trim();
+                #region                
+                //int age = Convert.ToInt32(txt_age.Text.Trim());
+                //string sex = "男";
+                //string clas = comboBox_clas.Text;
+                //string dept = comboBox_dept.Text;
+                //string phone = txt_phone.Text;
+                //string qq = txt_qq.Text;
+                //string addr = txt_addr.Text;
+                //if (radioButton_woman.Checked)
+                //{
+                //    sex = "女";
+                //}
+                //if (comboBox_clas.Text == "请选择班级")
+                //{
+                //    MessageBox.Show("请选择班级!");
+                //    comboBox_clas.DropDownStyle = ComboBoxStyle.DropDownList;
+                //    return;
+                //}
+                //if (comboBox_dept.Text == "请选择所在系")
+                //{
+                //    MessageBox.Show("请选择所在系!");
+                //    comboBox_dept.DropDownStyle = ComboBoxStyle.DropDownList;
+                //    return;
+                //}
+                #endregion
+                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+                string sql_delete = string.Format("delete from sinformation where no={0} and name={1}", no, name);
+                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
+                SqlCommand cmd_delete = new SqlCommand
+                {
+                    CommandText = sql_delete
+                };//实例化一个数据库操作对象
+                cmd_delete.Connection = con;
+                try
+                {
+                    con.Open();//打开数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("连接数据库失败!");
+                    return;
+                }
+                int j = cmd_delete.ExecuteNonQuery();//由于增加了一条记录，所以返回1
+                if (j > 0)
+                {
+                    MessageBox.Show("删除学生信息成功!");
+                }
+                else
+                {
+                    MessageBox.Show("删除学生信息失败!");
+                }
+                try
+                {
+                    con.Close();//立即关闭数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("断开数据库失败!");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("输入有误,请重新输入!");
+                return;
+            }
+        }
+
+        private void button_update_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string no = txt_no.Text.Trim();
+                string name = txt_name.Text.Trim();
+                int age = Convert.ToInt32(txt_age.Text.Trim());
+                string sex = "男";
+                string clas = comboBox_clas.Text;
+                string dept = comboBox_dept.Text;
+                string phone = txt_phone.Text;
+                string qq = txt_qq.Text;
+                string addr = txt_addr.Text;
+                if (radioButton_woman.Checked)
+                {
+                    sex = "女";
+                }
+                if (comboBox_clas.Text == "请选择班级")
+                {
+                    MessageBox.Show("请选择班级!");
+                    comboBox_clas.DropDownStyle = ComboBoxStyle.DropDownList;
+                    return;
+                }
+                if (comboBox_dept.Text == "请选择所在系")
+                {
+                    MessageBox.Show("请选择所在系!");
+                    comboBox_dept.DropDownStyle = ComboBoxStyle.DropDownList;
+                    return;
+                }
+                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+                string sql_insert = string.Format("update sinformation set no='{0}',name='{1}', age='{2}', sex='{3}', clas='{4}', dept='{5}', phone='{6}', qq='{7}', addr='{8}'", no, name, age, sex, clas, dept, phone, qq, addr);
+                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
+                SqlCommand cmd_insert = new SqlCommand
+                {
+                    CommandText = sql_insert
+                };//实例化一个数据库操作对象
+                cmd_insert.Connection = con;
+                try
+                {
+                    con.Open();//打开数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("连接数据库失败!");
+                }
+                int j = cmd_insert.ExecuteNonQuery();//由于增加了一条记录，所以返回1
+                if (j > 0)
+                {
+                    MessageBox.Show("修改学生信息成功!");
+                }
+                else
+                {
+                    MessageBox.Show("修改学生信息失败!");
+                }
+                try
+                {
+                    con.Close();//立即关闭数据库连接
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("断开数据库失败!");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("输入有误,请重新输入!");
+                return;
+            }
+        }
+
+        private void pictureBox_show_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            if (DialogResult.OK == OpenFileDialog1.ShowDialog())
+            pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
         }
     }
 }
-//private void button_insert_Click(object sender, EventArgs e)
-//{
-//    #region
-//    //这一部分是集合和泛型的示例
-//    //ListViewItem lsvi = new ListViewItem();
-//    //lsvi.SubItems.Add(txt_name.Text);
-//    //lsvi.SubItems.Add(txt_no.Text);
-//    //lsvi.SubItems.Add(comboBox_class.Text);
-//    //lsvi.SubItems.Add(txt_phoneno.Text);
-//    //string sex = "男";
-//    //if (radioButton2.Checked==true)
-//    //{
-//    //    sex = "女";
-//    //}
-//    //lsvi.SubItems.Add(sex);
-//    //listView1.Items.Add(lsvi);
-//    #endregion
-//    try
-//    {
-//        string no = txt_no.Text.Trim();
-//        string name = txt_name.Text.Trim();
-//        int age = Convert.ToInt32(txt_age.Text.Trim());
-//        string clas = comboBox_clas.Text;
-//        string phone = txt_phone.Text;
-//        string sex = "男";
-//        if (radioButton_woman.Checked)
-//        {
-//            sex = "女";
-//        }
-//        if (comboBox_clas.Text == "请选择班级")
-//        {
-//            MessageBox.Show("请选择班级!");
-//            comboBox_clas.DropDownStyle = ComboBoxStyle.DropDownList;
-//            return;
-//        }
-//        string constr = "Data Source=.;Initial Catalog=testproject;Integrated Security=True";//连接字符串
-//        string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
-//        //定义查询要执行的SQL语句
-//        //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
-//        SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
-//        SqlCommand cmd_insert = new SqlCommand
-//        {
-//            CommandText = sql_insert
-//        };//实例化一个数据库操作对象
-//        cmd_insert.Connection = con;
-//        try
-//        {
-//            con.Open();//打开数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("连接数据库失败!");
-//            return;
-//        }
-//        int j = cmd_insert.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-//        if (j > 0)
-//        {
-//            MessageBox.Show("添加学生信息成功!");
-//        }
-//        else
-//        {
-//            MessageBox.Show("添加学生信息失败!");
-//        }
-//        try
-//        {
-//            con.Close();//立即关闭数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("断开数据库失败!");
-//            return;
-//        }
-//    }
-//    catch//一般的catch代码块:catch后面没有任何内容,可以匹配任何类型的异常.
-//    {
-//        MessageBox.Show("输入有误,请重新输入!");
-//        return;
-//    }
-//}
-
-//private void button_delete_Click(object sender, EventArgs e)
-//{
-//    try
-//    {
-//        string no = txt_no.Text.Trim();
-//        string name = txt_name.Text.Trim();
-//        string constr = "Data Source=.;Initial Catalog=testproject;Integrated Security=True";//连接字符串
-//        string sql_delete = string.Format("delete from information where no='{0}' and name='{1}'", no, name);
-//        //定义查询要执行的SQL语句
-//        //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
-//        SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
-//        SqlCommand cmd_delete = new SqlCommand
-//        {
-//            CommandText = sql_delete
-//        };//实例化一个数据库操作对象
-//        cmd_delete.Connection = con;
-//        try
-//        {
-//            con.Open();//打开数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("连接数据库失败!");
-//            return;
-//        }
-//        int j = cmd_delete.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-//        if (j > 0)
-//        {
-//            MessageBox.Show("删除学生信息成功!");
-//        }
-//        else
-//        {
-//            MessageBox.Show("删除学生信息失败!");
-//        }
-//        try
-//        {
-//            con.Close();//立即关闭数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("断开数据库失败!");
-//            return;
-//        }
-//    }
-//    catch//一般的catch代码块:catch后面没有任何内容,可以匹配任何类型的异常.
-//    {
-//        MessageBox.Show("输入有误,请重新输入!");
-//        return;
-//    }
-//}
-
 //private void button_select_Click(object sender, EventArgs e)
 //{
 
@@ -200,91 +313,7 @@ namespace 通讯录
 //        MessageBox.Show("连接数据库失败!");
 //        return;
 //    }
-//    int j = (int)cmd_select.ExecuteScalar();
-//    MessageBox.Show("j");
 
-//}
-
-//private void pictureBox1_Click(object sender, EventArgs e)
-//{
-//    OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
-//    if (DialogResult.OK == OpenFileDialog1.ShowDialog())
-//        pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
-
-//}
-
-//private void button_update_Click(object sender, EventArgs e)
-//{
-//    try
-//    {
-//        string no = txt_no.Text.Trim();
-//        string name = txt_name.Text.Trim();
-//        int age = Convert.ToInt32(txt_age.Text.Trim());
-//        string clas = comboBox_clas.Text;
-//        string phone = txt_phone.Text;
-//        string sex = "男";
-//        if (radioButton_woman.Checked)
-//        {
-//            sex = "女";
-//        }
-//        if (comboBox_clas.Text == "请选择班级")
-//        {
-//            MessageBox.Show("请选择班级!");
-//            comboBox_clas.DropDownStyle = ComboBoxStyle.DropDownList;
-//            return;
-//        }
-//        string constr = "Data Source=.;Initial Catalog=testproject;Integrated Security=True";//连接字符串
-//        string sql_update = string.Format("update information set name='{0}', age={1}, clas='{2}', phone='{3}', sex='{4}' where no='{5}'", name, age, clas, phone, sex, no);
-//        //同时修改多项数据需要用逗号隔开,(用逗号隔开)(用逗号隔开),出错时先把异常捕获注释掉,通过异常信息调试程序错误
-//        //定义查询要执行的SQL语句
-//        //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
-//        SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
-//        SqlCommand cmd_update = new SqlCommand
-//        {
-//            CommandText = sql_update
-//        };//实例化一个数据库操作对象
-//        cmd_update.Connection = con;
-//        try
-//        {
-//            con.Open();//打开数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("连接数据库失败!");
-//            return;
-//        }
-//        int j = cmd_update.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-//        if (j > 0)
-//        {
-//            MessageBox.Show("修改学生信息成功!");
-//        }
-//        else
-//        {
-//            MessageBox.Show("修改学生信息失败!");
-//        }
-//        try
-//        {
-//            con.Close();//立即关闭数据库连接
-//        }
-//        catch (Exception)
-//        {
-//            MessageBox.Show("断开数据库失败!");
-//            return;
-//        }
-//    }
-//    catch
-//    {
-//        MessageBox.Show("输入错误请重新输入!");
-//        return;
-//    }
-//}
-
-//private void Form2_Load(object sender, EventArgs e)
-//{
-
-//}
-//    }
-//}
 //数据库访问一般步骤
 //1-定义连接数据库的连接字符串
 //2-定义要进行的SQL语言操作
