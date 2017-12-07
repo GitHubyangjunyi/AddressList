@@ -33,6 +33,9 @@ namespace 通讯录
             connect_sign_in.Close();
             return i;
         }
+
+        static string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+        SqlConnection con = new SqlConnection(constr);
         /// <summary>
         /// 用来判断SQL语句是否被正确执行,第一个参数是Command对象执行方法,第二个参数是执行该SQL语句完成了什么操作的简写
         /// </summary>
@@ -80,9 +83,7 @@ namespace 通讯录
                     comboBox_dept.DropDownStyle = ComboBoxStyle.DropDownList;
                     return;
                 }
-                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
                 string sql_insert = string.Format("insert into sinformation( no, name, age, sex, clas, dept, phone, qq, addr ) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", no, name, age, sex, clas, dept, phone, qq, addr);
-                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
                 SqlCommand cmd_insert = new SqlCommand
                 {
                     CommandText = sql_insert
@@ -151,9 +152,7 @@ namespace 通讯录
                 //    return;
                 //}
                 #endregion
-                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
                 string sql_delete = string.Format("delete from sinformation where no={0} and name={1}", no, name);
-                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
                 SqlCommand cmd_delete = new SqlCommand
                 {
                     CommandText = sql_delete
@@ -221,9 +220,7 @@ namespace 通讯录
                     comboBox_dept.DropDownStyle = ComboBoxStyle.DropDownList;
                     return;
                 }
-                string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
                 string sql_insert = string.Format("update sinformation set  age='{0}', sex='{1}', clas='{2}', dept='{3}', phone='{4}', qq='{5}', addr='{6}' where no='{7}' and name='{8}'", age, sex, clas, dept, phone, qq, addr, no, name);
-                SqlConnection con = new SqlConnection(constr);
                 SqlCommand cmd_insert = new SqlCommand
                 {
                     CommandText = sql_insert
@@ -258,7 +255,18 @@ namespace 通讯录
 
         private void button_select_Click(object sender, EventArgs e)
         {
-            GetDate("select *  from sinformation");
+            string no = txt_no.Text.Trim();
+            string name = txt_name.Text.Trim();
+            //int age = Convert.ToInt32(txt_age.Text.Trim());
+            //string sex = "男";
+            //string clas = comboBox_clas.Text;
+            //string dept = comboBox_dept.Text;
+            //string phone = txt_phone.Text;
+            //string qq = txt_qq.Text;
+            //string addr = txt_addr.Text;
+            //string sql_select = string.Format();
+            string sql_select = string.Format("select * from sinformation where  no='{0}' and name like '%{1}%' and 1>0",no,name);
+            GetDate(sql_select);//写到这里未实现
         }
 
         private void pictureBox_show_Click(object sender, EventArgs e)
@@ -270,12 +278,11 @@ namespace 通讯录
         
         public void GetDate(string sql)
         {
-            string constr = string.Format("Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456");
-            SqlConnection GetDate_Connection = new SqlConnection(constr);
+            
             //SqlCommand GetDate_Command = new SqlCommand(sql);//复杂化对象初始化
             SqlCommand GetDate_Command = new SqlCommand(sql)
             {
-                Connection = GetDate_Connection
+                Connection = con
             };
             //SqlDataAdapter dataAdapter = new SqlDataAdapter();//复杂化对象初始化
             SqlDataAdapter dataAdapter = new SqlDataAdapter

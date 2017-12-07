@@ -57,8 +57,8 @@ namespace 通讯录
                 if (i > 0)
                 {
                     Information sinformation = new Information();//跳转到信息页
-                    sinformation.ShowDialog();//模式对话框,强制用户操作
-                    //sinformation.Show();//非模式对话框,用户可以离开
+                    //sinformation.ShowDialog();//模式对话框,强制用户操作
+                    sinformation.Show();//非模式对话框,用户可以离开
 
                 }
                 else
