@@ -75,6 +75,7 @@ namespace 通讯录
         }
     }
 }
+#region
 //下面我们将详细讲解如何在Page_Load()中对数据库的增加、删除、修改，
 //最后我们再来总结一下ExecuteNonQuery(),ExecuteScalar(),ExecuteReader的用法：
 //1、 增加新的记录
@@ -138,3 +139,4 @@ namespace 通讯录
 //OleDbCommand2.Parameters("zip").Value = TextBox8.Text
 //OleDbCommand2.Parameters("contract").Value = CheckBox1.Checked
 //cmdresults = OleDbcommand2.ExecuteNonQuery()
+#endregion

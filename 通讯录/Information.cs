@@ -13,16 +13,11 @@ namespace 通讯录
 {
     public partial class Information : Form
     {
-        
-        
         public Information()
         {
             InitializeComponent();
         }
-        /// <summary>
-        /// 这里可以输入提示该函数功能的文本,鼠标移到方法上会显示显示,参数解析在下面
-        /// </summary>
-        /// <returns></returns>
+
         public int DbSignIn_Out()
         {
             string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID='test';PWD=123456");
@@ -38,7 +33,23 @@ namespace 通讯录
             connect_sign_in.Close();
             return i;
         }
-
+        /// <summary>
+        /// 用来判断SQL语句是否被正确执行,第一个参数是执行方法,第二个参数是SQL语句的名称
+        /// </summary>
+        /// <param name="j"></param>
+        /// <param name="task"></param>
+        public void Judge(int j,string task)
+        {
+            if (j > 0)
+            {
+                MessageBox.Show(task+"学生信息成功!");
+            }
+            else
+            {
+                MessageBox.Show(task + "学生信息失败!");
+            }
+        }
+        
         private void button_insert_Click(object sender, EventArgs e)
         {
 
@@ -85,15 +96,7 @@ namespace 通讯录
                 {
                     MessageBox.Show("连接数据库失败!");
                 }
-                int j = cmd_insert.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-                if (j > 0)
-                {
-                    MessageBox.Show("添加学生信息成功!");
-                }
-                else
-                {
-                    MessageBox.Show("添加学生信息失败!");
-                }
+                Judge(cmd_insert.ExecuteNonQuery(),"提交");
                 try
                 {
                     con.Close();//立即关闭数据库连接
@@ -168,15 +171,7 @@ namespace 通讯录
                         MessageBox.Show("连接数据库失败!");
                         return;
                     }
-                    int j = cmd_delete.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-                    if (j > 0)
-                    {
-                        MessageBox.Show("删除学生信息成功!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("删除学生信息失败!");
-                    }
+                    Judge(cmd_delete.ExecuteNonQuery(),"删除");
                     try
                     {
                         con.Close();//立即关闭数据库连接
@@ -226,66 +221,55 @@ namespace 通讯录
                     return;
                 }
                 string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
-                string sql_insert = string.Format("update sinformation set no='{0}',name='{1}', age='{2}', sex='{3}', clas='{4}', dept='{5}', phone='{6}', qq='{7}', addr='{8}'", no, name, age, sex, clas, dept, phone, qq, addr);
-                SqlConnection con = new SqlConnection(constr);//实例化一个数据库连接对象
+                string sql_insert = string.Format("update sinformation set  age='{0}', sex='{1}', clas='{2}', dept='{3}', phone='{4}', qq='{5}', addr='{6}' where no='{7}' and name='{8}'", age, sex, clas, dept, phone, qq, addr, no, name);
+                SqlConnection con = new SqlConnection(constr);
                 SqlCommand cmd_insert = new SqlCommand
                 {
                     CommandText = sql_insert
-                };//实例化一个数据库操作对象
+                };
                 cmd_insert.Connection = con;
                 try
                 {
-                    con.Open();//打开数据库连接
+                    con.Open();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("连接数据库失败!");
                 }
-                int j = cmd_insert.ExecuteNonQuery();//由于增加了一条记录，所以返回1
-                if (j > 0)
-                {
-                    MessageBox.Show("修改学生信息成功!");
-                }
-                else
-                {
-                    MessageBox.Show("修改学生信息失败!");
-                }
+                Judge(cmd_insert.ExecuteNonQuery(), "修改");
                 try
                 {
-                    con.Close();//立即关闭数据库连接
+                    con.Close();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("断开数据库失败!");
                     return;
                 }
-            }
+        }
             catch
             {
                 MessageBox.Show("输入有误,请重新输入!");
                 return;
             }
-        }
+}
 
         private void button_select_Click(object sender, EventArgs e)
         {
             GetDate("select *  from sinformation");
         }
+
         private void pictureBox_show_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
             if (DialogResult.OK == OpenFileDialog1.ShowDialog())
                 pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
         }
-
-
-
+        
         public void GetDate(string sql)
         {
             string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
             SqlConnection GetDate_Connection = new SqlConnection(constr);
-            //SqlCommand GetDate_Command = new SqlCommand(sql);
-            //GetDate_Command.Connection = GetDate_Connection;
             SqlDataAdapter dataAdapter = new SqlDataAdapter("sql", GetDate_Connection);
             DataSet dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
@@ -293,8 +277,7 @@ namespace 通讯录
         }
     }
 }
-
-
+#region
 //private void button_select_Click(object sender, EventArgs e)
 //{
 //    string no = txt_no.Text.Trim();
@@ -342,3 +325,4 @@ namespace 通讯录
 //5-数据库操作员的连接属性等于操作员(也就是叫数据库连接员来引路)
 //6-连接员引路打开数据库方法让操作员操作
 //7-操作员操作完数据连接员关闭数据库
+#endregion
