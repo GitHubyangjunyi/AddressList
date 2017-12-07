@@ -34,10 +34,10 @@ namespace 通讯录
             return i;
         }
         /// <summary>
-        /// 用来判断SQL语句是否被正确执行,第一个参数是执行方法,第二个参数是SQL语句的名称
+        /// 用来判断SQL语句是否被正确执行,第一个参数是Command对象执行方法,第二个参数是执行该SQL语句完成了什么操作的简写
         /// </summary>
-        /// <param name="j"></param>
-        /// <param name="task"></param>
+        /// <param name="j">Command对象执行方法</param>
+        /// <param name="task">执行该SQL语句完成了什么操作的简写</param>
         public void Judge(int j,string task)
         {
             if (j > 0)
@@ -97,6 +97,7 @@ namespace 通讯录
                     MessageBox.Show("连接数据库失败!");
                 }
                 Judge(cmd_insert.ExecuteNonQuery(),"提交");
+                GetDate("select *  from sinformation");
                 try
                 {
                     con.Close();//立即关闭数据库连接
@@ -116,8 +117,7 @@ namespace 通讯录
 
         private void Information_Load(object sender, EventArgs e)
         {
-            //Login login = new Login();
-            //login.DbSignIn_Out();
+            GetDate("select *  from sinformation");
         }
 
         private void button_delete_Click(object sender, EventArgs e)
@@ -172,6 +172,7 @@ namespace 通讯录
                         return;
                     }
                     Judge(cmd_delete.ExecuteNonQuery(),"删除");
+                    GetDate("select *  from sinformation");
                     try
                     {
                         con.Close();//立即关闭数据库连接
@@ -237,6 +238,7 @@ namespace 通讯录
                     MessageBox.Show("连接数据库失败!");
                 }
                 Judge(cmd_insert.ExecuteNonQuery(), "修改");
+                GetDate("select *  from sinformation");
                 try
                 {
                     con.Close();
@@ -268,9 +270,18 @@ namespace 通讯录
         
         public void GetDate(string sql)
         {
-            string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+            string constr = string.Format("Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456");
             SqlConnection GetDate_Connection = new SqlConnection(constr);
-            SqlDataAdapter dataAdapter = new SqlDataAdapter("sql", GetDate_Connection);
+            //SqlCommand GetDate_Command = new SqlCommand(sql);//复杂化对象初始化
+            SqlCommand GetDate_Command = new SqlCommand(sql)
+            {
+                Connection = GetDate_Connection
+            };
+            //SqlDataAdapter dataAdapter = new SqlDataAdapter();//复杂化对象初始化
+            SqlDataAdapter dataAdapter = new SqlDataAdapter
+            {
+                SelectCommand = GetDate_Command
+            };
             DataSet dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
             dataGridView_sinformation.DataSource = dataSet.Tables[0];

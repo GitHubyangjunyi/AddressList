@@ -17,16 +17,19 @@ namespace 通讯录
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        ///连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
+        ///定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
+        ///路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
+        ///指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
+        ///string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
+        ///定义查询要执行的SQL语句
+        ///不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
+        /// </summary>
+        /// <returns></returns>
         public int DbSignIn_Out()
         {
-            //连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
-            //定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
-            //路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
-            //指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
-            //string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
-            //定义查询要执行的SQL语句
-            //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
+            
             string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", textBox_username.Text, textBox_pwd.Text);
             //注意在数据库映射权限给用户
             string username = textBox_username.Text;
@@ -72,6 +75,11 @@ namespace 通讯录
 
         private void linkLabel_sign_up_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

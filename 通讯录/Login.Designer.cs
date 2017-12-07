@@ -132,6 +132,7 @@
             this.Controls.Add(this.bt_sign_in);
             this.Name = "Login";
             this.Text = "通讯录";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,13 +141,13 @@
         #endregion
 
         private System.Windows.Forms.LinkLabel linkLabel_sign_up;
-        private System.Windows.Forms.TextBox textBox_pwd;
-        private System.Windows.Forms.TextBox textBox_username;
         private System.Windows.Forms.Label label_pwd;
         private System.Windows.Forms.Label label_username;
         private System.Windows.Forms.CheckBox checkBox_;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button bt_sign_in;
+        public System.Windows.Forms.TextBox textBox_username;
+        public System.Windows.Forms.TextBox textBox_pwd;
     }
 }
 
