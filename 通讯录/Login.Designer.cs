@@ -55,6 +55,7 @@
             this.textBox_pwd.PasswordChar = '*';
             this.textBox_pwd.Size = new System.Drawing.Size(129, 21);
             this.textBox_pwd.TabIndex = 11;
+            this.textBox_pwd.Text = "1";
             // 
             // textBox_username
             // 
@@ -63,6 +64,7 @@
             this.textBox_username.Name = "textBox_username";
             this.textBox_username.Size = new System.Drawing.Size(129, 21);
             this.textBox_username.TabIndex = 12;
+            this.textBox_username.Text = "test";
             // 
             // label_pwd
             // 
@@ -87,6 +89,8 @@
             // checkBox_
             // 
             this.checkBox_.AutoSize = true;
+            this.checkBox_.Checked = true;
+            this.checkBox_.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_.Location = new System.Drawing.Point(321, 129);
             this.checkBox_.Name = "checkBox_";
             this.checkBox_.Size = new System.Drawing.Size(72, 16);

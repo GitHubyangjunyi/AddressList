@@ -38,7 +38,8 @@ namespace 通讯录
             {
                 CommandText = sql_sign_in
             };
-            cmd_sign_in.Connection = connect_sign_in;//获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection.返回结果:到数据源的连接
+            cmd_sign_in.Connection = connect_sign_in;//就把连接对象理解成是执行对象的一个属性
+            //获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection.返回结果:到数据源的连接
             connect_sign_in.Open();//打开数据库连接
             int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
             connect_sign_in.Close();
@@ -53,7 +54,9 @@ namespace 通讯录
                 if (i > 0)
                 {
                     Information sinformation = new Information();//跳转到信息页
-                    sinformation.ShowDialog();//模式对话框
+                    sinformation.ShowDialog();//模式对话框,强制用户操作
+                    //sinformation.Show();//非模式对话框,用户可以离开
+
                 }
                 else
                 {
@@ -77,7 +80,7 @@ namespace 通讯录
 //1、 增加新的记录
 //private void Page_Load(object sender, System.EventArgs e)
 //{
-//    MyConnection.Open();//打开数据库
+//    MyConnection.Open();
 //    MyCommand1.CommandText = "insert into admin values(‘aaddq‘,‘as‘,‘ss‘)";
 //    MyCommand1.Connection = MyConnection;
 //    MyCommand1.ExecuteNonQuery();//由于增加了一条记录，所以返回1

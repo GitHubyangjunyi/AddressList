@@ -13,31 +13,28 @@ namespace 通讯录
 {
     public partial class Information : Form
     {
+        
+        
         public Information()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// 这里可以输入提示该函数功能的文本,鼠标移到方法上会显示显示,参数解析在下面
+        /// </summary>
+        /// <returns></returns>
         public int DbSignIn_Out()
         {
-            //连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
-            //定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
-            //路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
-            //指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
-            //string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
-            //定义查询要执行的SQL语句
-            //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
             string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID='test';PWD=123456");
             string sql_sign_in = string.Format("select count(*) from login where username='test' and pwd=123456");
-            SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);//实例化连接对象,并将连接字符串给该对象
+            SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);
             SqlCommand cmd_sign_in = new SqlCommand
             {
                 CommandText = sql_sign_in
             };
-            cmd_sign_in.Connection = connect_sign_in;//获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection。
-                                                     //返回结果:到数据源的连接
-            connect_sign_in.Open();//打开数据库连接
-            int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
+            cmd_sign_in.Connection = connect_sign_in;
+            connect_sign_in.Open();
+            int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());
             connect_sign_in.Close();
             return i;
         }
@@ -270,11 +267,9 @@ namespace 通讯录
             }
         }
 
-       
-
         private void button_select_Click(object sender, EventArgs e)
         {
-
+            GetDate("select *  from sinformation");
         }
         private void pictureBox_show_Click(object sender, EventArgs e)
         {
@@ -282,16 +277,31 @@ namespace 通讯录
             if (DialogResult.OK == OpenFileDialog1.ShowDialog())
                 pictureBox_show.Image = Image.FromFile(OpenFileDialog1.FileName);
         }
+
+
+
+        public void GetDate(string sql)
+        {
+            string constr = "Data Source=.;Initial Catalog=addresslist;UID=yangjunyi;PWD=123456";
+            SqlConnection GetDate_Connection = new SqlConnection(constr);
+            //SqlCommand GetDate_Command = new SqlCommand(sql);
+            //GetDate_Command.Connection = GetDate_Connection;
+            SqlDataAdapter dataAdapter = new SqlDataAdapter("sql", GetDate_Connection);
+            DataSet dataSet = new DataSet();
+            dataAdapter.Fill(dataSet);
+            dataGridView_sinformation.DataSource = dataSet.Tables[0];
+        }
     }
 }
+
+
 //private void button_select_Click(object sender, EventArgs e)
 //{
-
 //    string no = txt_no.Text.Trim();
-//    //string name = txt_name.Text.Trim();
-//    //int age = Convert.ToInt32(txt_age.Text.Trim());
-//    //string clas = comboBox_clas.Text;
-//    //string phone = txt_phone.Text;
+//    string name = txt_name.Text.Trim();
+//    int age = Convert.ToInt32(txt_age.Text.Trim());
+//    string clas = comboBox_clas.Text;
+//    string phone = txt_phone.Text;
 //    string sex = "男";
 //    if (radioButton_woman.Checked)
 //    {
@@ -304,11 +314,11 @@ namespace 通讯录
 //        return;
 //    }
 //    string constr = "Data Source=.;Initial Catalog=testproject;Integrated Security=True";//连接字符串
-//                                                                                         //string sql_select = string.Format("select * from information where no='{0}' or name='{1}' or age='{2}' or clas='{3}' or phone='{4}' or sex='{5}'", txt_no.Text="1",txt_name.Text = "1", txt_age.Text = "1", comboBox_clas.Text = "1", txt_phone.Text = "1", sex = "男");
+//string sql_select = string.Format("select * from information where no='{0}' or name='{1}' or age='{2}' or clas='{3}' or phone='{4}' or sex='{5}'", txt_no.Text="1",txt_name.Text = "1", txt_age.Text = "1", comboBox_clas.Text = "1", txt_phone.Text = "1", sex = "男");
 //                                                                                         //后面跟的数据用来测试默认输入,具体还未验证
 //    string sql_select = string.Format("select * from information where no='{0}' or name='{1}' or age='{2}' or clas='{3}' or phone='{4}' or sex='{5}'", txt_no.Text, txt_name.Text, txt_age.Text, comboBox_clas.Text, txt_phone.Text, sex);
-//    //定义查询要执行的SQL语句
-//    //不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
+//    定义查询要执行的SQL语句
+//    不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
 //    SqlConnection con = new SqlConnection(constr);
 //    SqlCommand cmd_select = new SqlCommand
 //    {
@@ -324,7 +334,6 @@ namespace 通讯录
 //        MessageBox.Show("连接数据库失败!");
 //        return;
 //    }
-
 //数据库访问一般步骤
 //1-定义连接数据库的连接字符串
 //2-定义要进行的SQL语言操作
