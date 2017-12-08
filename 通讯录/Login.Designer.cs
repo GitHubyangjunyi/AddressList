@@ -55,7 +55,7 @@
             this.textBox_pwd.PasswordChar = '*';
             this.textBox_pwd.Size = new System.Drawing.Size(129, 21);
             this.textBox_pwd.TabIndex = 11;
-            this.textBox_pwd.Text = "1";
+            this.textBox_pwd.Text = "123456";
             // 
             // textBox_username
             // 
@@ -132,7 +132,6 @@
             this.Controls.Add(this.bt_sign_in);
             this.Name = "Login";
             this.Text = "通讯录";
-            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -13,52 +13,53 @@ namespace 通讯录
 {
     public partial class Login : Form
     {
+        static public string username;
+        static public string pwd;
         public Login()
         {
             InitializeComponent();
+            username = textBox_username.Text;
+            pwd = textBox_pwd.Text;
         }
         /// <summary>
         ///连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
         ///定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
         ///路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
         ///指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
-        ///string sql_insert = string.Format("insert into information( no, name, age, clas, phone, sex ) values ('{0}','{1}','{2}','{3}','{4}','{5}')", no, name, age, clas, phone, sex);
-        ///定义查询要执行的SQL语句
-        ///不允许因为代码编辑窗口太小而使用回车,这会导致错误!!!
         /// </summary>
         /// <returns></returns>
-        public int DbSignIn_Out()
+        public int DbSignIn_Out(int In_Out)
         {
-            
-            string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", textBox_username.Text, textBox_pwd.Text);
-            //注意在数据库映射权限给用户
-            string username = textBox_username.Text;
-            string pwd = textBox_pwd.Text;
+            string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", username, pwd);
             string sql_sign_in = string.Format("select count(*) from login where username='{0}' and pwd='{1}'", username, pwd);
-            //连接字符串中的用户名和密码存放在数据库里面的的login表里面
-            SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);//实例化连接对象,并将连接字符串给该对象
+            SqlConnection connect_sign_in = new SqlConnection(constr_sign_in);
             SqlCommand cmd_sign_in = new SqlCommand
             {
-                CommandText = sql_sign_in
+                CommandText = sql_sign_in,
+                Connection = connect_sign_in
             };
-            cmd_sign_in.Connection = connect_sign_in;//就把连接对象理解成是执行对象的一个属性
-            //获取或设置 System.Data.SqlClient.SqlCommand 的此实例使用的 System.Data.SqlClient.SqlConnection.返回结果:到数据源的连接
-            connect_sign_in.Open();//打开数据库连接
-            int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
-            connect_sign_in.Close();
-            return i;
+            if (In_Out==1)
+            {
+                connect_sign_in.Open();
+                int i = Convert.ToInt32(cmd_sign_in.ExecuteScalar());//返回执行结果的第一行第一列
+                return i;
+            }
+            else
+            {
+                connect_sign_in.Close();
+                int i = 0;
+                return i;
+            }
         }
-
         private void bt_sign_in_Click(object sender, EventArgs e)
         {
             try
             {
-                int i=DbSignIn_Out();
+                int i= DbSignIn_Out(1);
                 if (i > 0)
                 {
-                    Information sinformation = new Information();//跳转到信息页
-                    //sinformation.ShowDialog();//模式对话框,强制用户操作
-                    sinformation.Show();//非模式对话框,用户可以离开
+                    Information sinformation = new Information();
+                    sinformation.Show();
 
                 }
                 else
@@ -68,18 +69,8 @@ namespace 通讯录
             }
             catch//通配异常
             {
-
-                MessageBox.Show("用户名或密码错误!");
+                MessageBox.Show("数据库连接失败!");
             }
-        }
-
-        private void linkLabel_sign_up_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

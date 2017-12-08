@@ -139,6 +139,9 @@
             // pictureBox_show
             // 
             this.pictureBox_show.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_show.ErrorImage = null;
+            this.pictureBox_show.ImageLocation = "";
+            this.pictureBox_show.InitialImage = null;
             this.pictureBox_show.Location = new System.Drawing.Point(588, 12);
             this.pictureBox_show.Name = "pictureBox_show";
             this.pictureBox_show.Size = new System.Drawing.Size(135, 170);
