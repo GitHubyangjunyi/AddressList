@@ -13,22 +13,18 @@ namespace 通讯录
 {
     public partial class Login : Form
     {
-        static public string username;
-        static public string pwd;
         public Login()
         {
             InitializeComponent();
+        }
+        static public string username;
+        static public string pwd;
+        public void GetUserInfo()
+        {
             username = textBox_username.Text;
             pwd = textBox_pwd.Text;
         }
-        /// <summary>
-        ///连接字符串string constr = "Data Source=.;Initial Catalog=addresslist;Integrated Security=True";
-        ///定义连接字符串为//数据库服务器名称为本地//指明要连接的数据库的名称为addresslist//集成用户方式登陆
-        ///路径连接:"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=路径;"
-        ///指明数据源的驱动程序是Microsoft.Jet.OLEDB.4.0,此驱动程序必须在本地计算机上面
-        /// </summary>
-        /// <returns></returns>
-        public int DbSignIn_Out(int In_Out)
+        public int SignIn_Out(int In_Out)
         {
             string constr_sign_in = string.Format("Data Source=.;Initial Catalog=addresslist;UID={0};PWD={1}", username, pwd);
             string sql_sign_in = string.Format("select count(*) from login where username='{0}' and pwd='{1}'", username, pwd);
@@ -55,8 +51,9 @@ namespace 通讯录
         {
             try
             {
-                int i= DbSignIn_Out(1);
-                if (i > 0)
+                GetUserInfo();
+                int i= SignIn_Out(1);
+                if (i ==1)
                 {
                     Information sinformation = new Information();
                     sinformation.Show();
@@ -66,10 +63,15 @@ namespace 通讯录
                 {
                     MessageBox.Show("用户名或密码错误!");
                 }
+                i = SignIn_Out(0);
+                if (i != 0)
+                {
+                    MessageBox.Show("数据库临时断开失败!");
+                }
             }
-            catch//通配异常
+            catch
             {
-                MessageBox.Show("数据库连接失败!");
+                MessageBox.Show("数据库连接失败!请检查数据库连接服务是否已启用!");
             }
         }
     }

@@ -248,7 +248,7 @@
             // 
             // txt_hash
             // 
-            this.txt_hash.Enabled = false;
+            this.txt_hash.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.txt_hash.Location = new System.Drawing.Point(110, 12);
             this.txt_hash.Name = "txt_hash";
             this.txt_hash.Size = new System.Drawing.Size(133, 21);
