@@ -115,7 +115,7 @@
             this.bt_sign_in.TabIndex = 6;
             this.bt_sign_in.Text = "登录";
             this.bt_sign_in.UseVisualStyleBackColor = true;
-            this.bt_sign_in.Click += new System.EventHandler(this.bt_sign_in_Click);
+            this.bt_sign_in.Click += new System.EventHandler(this.Bt_sign_in_Click);
             // 
             // Login
             // 

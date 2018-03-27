@@ -47,7 +47,7 @@ namespace 通讯录
                 return i;
             }
         }
-        private void bt_sign_in_Click(object sender, EventArgs e)
+        private void Bt_sign_in_Click(object sender, EventArgs e)
         {
             try
             {
