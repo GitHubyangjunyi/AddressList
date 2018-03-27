@@ -104,7 +104,7 @@
             this.button_update.TabIndex = 11;
             this.button_update.Text = "修改";
             this.button_update.UseVisualStyleBackColor = true;
-            this.button_update.Click += new System.EventHandler(this.button_update_Click);
+            this.button_update.Click += new System.EventHandler(this.Button_update_Click);
             // 
             // label_addr
             // 
@@ -148,7 +148,7 @@
             this.pictureBox_show.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_show.TabIndex = 9;
             this.pictureBox_show.TabStop = false;
-            this.pictureBox_show.Click += new System.EventHandler(this.pictureBox_show_Click);
+            this.pictureBox_show.Click += new System.EventHandler(this.PictureBox_show_Click);
             // 
             // comboBox_dept
             // 
@@ -269,7 +269,7 @@
             this.button_select.TabIndex = 5;
             this.button_select.Text = "查询";
             this.button_select.UseVisualStyleBackColor = true;
-            this.button_select.Click += new System.EventHandler(this.button_select_Click);
+            this.button_select.Click += new System.EventHandler(this.Button_select_Click);
             // 
             // button_delete
             // 
@@ -279,7 +279,7 @@
             this.button_delete.TabIndex = 5;
             this.button_delete.Text = "删除";
             this.button_delete.UseVisualStyleBackColor = true;
-            this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
+            this.button_delete.Click += new System.EventHandler(this.Button_delete_Click);
             // 
             // button_insert
             // 
@@ -289,7 +289,7 @@
             this.button_insert.TabIndex = 5;
             this.button_insert.Text = "提交";
             this.button_insert.UseVisualStyleBackColor = true;
-            this.button_insert.Click += new System.EventHandler(this.button_insert_Click);
+            this.button_insert.Click += new System.EventHandler(this.Button_insert_Click);
             // 
             // label_dept
             // 

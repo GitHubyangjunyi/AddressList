@@ -68,7 +68,7 @@ namespace 通讯录
             }
         }
         
-        private void button_insert_Click(object sender, EventArgs e)
+        private void Button_insert_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace 通讯录
             }
 }
 
-        private void button_delete_Click(object sender, EventArgs e)
+        private void Button_delete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace 通讯录
             }
         }
 
-        private void button_update_Click(object sender, EventArgs e)
+        private void Button_update_Click(object sender, EventArgs e)
         {
             try
             {
@@ -224,14 +224,14 @@ namespace 通讯录
             }
 }
 
-        private void button_select_Click(object sender, EventArgs e)
+        private void Button_select_Click(object sender, EventArgs e)
         {
             GetInfo();
             string sql_select = string.Format("select * from sinformation where 1<0 or name= '{1}'or no= '{0}'", name, no);
             GetDate(sql_select);
         }
 
-        private void pictureBox_show_Click(object sender, EventArgs e)
+        private void PictureBox_show_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
             if (DialogResult.OK == OpenFileDialog1.ShowDialog())
